@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dooly 튜토리얼</title>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:'Malgun Gothic',sans-serif;background:#f9fafb;margin:0;padding:20px;color:#1f2937}
+  .container{max-width:720px;margin:0 auto;background:white;border-radius:16px;padding:32px;box-shadow:0 4px 6px rgba(0,0,0,.07)}
+  .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+  .header h1{margin:0;font-size:18px;color:#1e3a5f}
+  .print-btn{padding:6px 14px;background:white;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;font-size:13px}
+  .step-num{font-size:13px;color:#6b7280;font-weight:600;letter-spacing:.05em;margin-bottom:8px}
+  h2{color:#1e3a5f;margin:0 0 16px;font-size:22px}
+  .progress-bar{background:#e5e7eb;border-radius:99px;height:6px;margin-bottom:24px}
+  .progress-fill{background:#3b82f6;height:100%;border-radius:99px;transition:width .3s}
+  .screen-area{background:#f3f4f6;border-radius:12px;min-height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;padding:16px}
+  .mock-screen{color:#9ca3af;font-size:14px;text-align:center}
+  .content p, .content li{font-size:15px;line-height:1.7;margin:6px 0}
+  .checkpoint{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px 16px;margin:20px 0;color:#166534;font-size:14px}
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid #e5e7eb}
+  .nav button{padding:10px 24px;background:#3b82f6;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit}
+  .nav button:disabled{background:#d1d5db;cursor:default}
+  .nav button:hover:not(:disabled){background:#2563eb}
+  .complete-list{list-style:none;padding:0}
+  .complete-list li{padding:10px 14px;background:#f0fdf4;border-radius:8px;margin:8px 0;font-size:14px}
+  @media(max-width:600px){.container{padding:20px}}
+  @media print{.nav{display:none}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Dooly 튜토리얼</h1>
+    <button class="print-btn" onclick="window.print()">인쇄</button>
+  </div>
+
+  <div class="step" id="step-0">
+    <div class="step-num">STEP 1 / 4</div>
+    <h2>기본 설정 — 사용자 이름·저장 폴더</h2>
+    <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
+    <div class="screen-area">
+      <div class="mock-screen">📸 기본 설정 화면<br><small>사용자 이름 입력 + 문서 저장 폴더 지정</small></div>
+    </div>
+    <div class="content">
+      <p>1. 앱을 처음 실행하면 <b>기본 설정</b> 화면이 나타납니다.</p>
+      <p>2. <b>사용자 이름</b>을 입력하고 <b>저장</b> 버튼을 클릭합니다.</p>
+      <p>3. <b>문서 저장 폴더</b>를 탐색 버튼으로 지정합니다.</p>
+    </div>
+    <div class="checkpoint">✅ 저장 완료 메시지가 뜨면 다음 단계로 진행하세요.</div>
+    <div class="nav">
+      <button onclick="go(-1)" disabled>← 이전</button>
+      <span>1 / 4</span>
+      <button onclick="go(1)">다음 →</button>
+    </div>
+  </div>
+
+  <div class="step" id="step-1" style="display:none">
+    <div class="step-num">STEP 2 / 4</div>
+    <h2>새 문서 만들기</h2>
+    <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+    <div class="screen-area">
+      <div class="mock-screen">📸 새 문서 화면<br><small>새 문서 버튼, 제목·카테고리 입력란</small></div>
+    </div>
+    <div class="content">
+      <p>1. <b>새 문서</b> 버튼을 클릭합니다.</p>
+      <p>2. 제목과 카테고리를 입력합니다.</p>
+    </div>
+    <div class="checkpoint">✅ 새 문서 화면이 열리면 다음 단계로 진행하세요.</div>
+    <div class="nav">
+      <button onclick="go(-1)">← 이전</button>
+      <span>2 / 4</span>
+      <button onclick="go(1)">다음 →</button>
+    </div>
+  </div>
+
+  <div class="step" id="step-2" style="display:none">
+    <div class="step-num">STEP 3 / 4</div>
+    <h2>내용 작성 및 저장</h2>
+    <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+    <div class="screen-area">
+      <div class="mock-screen">📸 문서 편집 화면<br><small>본문 작성 영역 + 저장 버튼</small></div>
+    </div>
+    <div class="content">
+      <p>1. 본문을 작성합니다.</p>
+      <p>2. <b>저장</b> 버튼을 클릭해 문서를 저장합니다.</p>
+    </div>
+    <div class="checkpoint">✅ 저장 완료 메시지가 뜨면 다음 단계로 진행하세요.</div>
+    <div class="nav">
+      <button onclick="go(-1)">← 이전</button>
+      <span>3 / 4</span>
+      <button onclick="go(1)">다음 →</button>
+    </div>
+  </div>
+
+  <div class="step" id="step-3" style="display:none">
+    <div class="step-num">STEP 4 / 4</div>
+    <h2>검색 및 공유</h2>
+    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+    <div class="screen-area">
+      <div class="mock-screen">📸 검색 화면<br><small>검색창 + 공유 버튼</small></div>
+    </div>
+    <div class="content">
+      <p>1. 상단 <b>검색</b> 창에 키워드를 입력해 문서를 찾습니다.</p>
+      <p>2. <b>공유</b> 버튼으로 다른 사용자에게 문서를 전달합니다.</p>
+    </div>
+    <div class="checkpoint">✅ 완료! 아래 완료 화면에서 전체 요약을 확인하세요.</div>
+    <div class="nav">
+      <button onclick="go(-1)">← 이전</button>
+      <span>4 / 4</span>
+      <button onclick="go(1)">완료 →</button>
+    </div>
+  </div>
+
+  <div class="step" id="step-4" style="display:none">
+    <div class="step-num">완료</div>
+    <h2>🎉 튜토리얼을 마쳤습니다</h2>
+    <p style="font-size:15px;color:#4b5563">아래 핵심 체크리스트를 다시 확인하세요.</p>
+    <ul class="complete-list">
+      <li>✅ 사용자 이름·저장 폴더 설정</li>
+      <li>✅ 새 문서 작성 시 제목·카테고리 입력</li>
+      <li>✅ 작성 후 반드시 저장</li>
+      <li>✅ 검색으로 문서 찾기, 공유로 전달</li>
+    </ul>
+    <div class="nav">
+      <button onclick="go(-1)">← 이전</button>
+      <span>완료</span>
+      <button onclick="go(0,true)">처음으로</button>
+    </div>
+  </div>
+
+</div>
+<script>
+var current = 0;
+var total = 5;
+function go(delta, restart){
+  var steps = document.querySelectorAll('.step');
+  steps[current].style.display = 'none';
+  if(restart){ current = 0; }
+  else { current += delta; }
+  if(current < 0) current = 0;
+  if(current >= total) current = total - 1;
+  steps[current].style.display = 'block';
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

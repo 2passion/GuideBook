@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PrintFlow 업무 매뉴얼</title>
+<style>
+  body{font-family:'Malgun Gothic',sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1f2937;line-height:1.7}
+  h1{color:#1e3a5f;border-bottom:3px solid #3b82f6;padding-bottom:10px}
+  h2{color:#1e40af;border-left:4px solid #3b82f6;padding-left:12px;margin-top:32px}
+  h3{color:#374151;margin-top:20px}
+  li{margin:6px 0}
+  .warning{background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;padding:12px 16px;margin:12px 0;color:#92400e}
+  .meta{color:#6b7280;font-size:13px;margin-bottom:32px}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  th,td{border:1px solid #e5e7eb;padding:8px 12px;text-align:left}
+  th{background:#f3f4f6}
+  @media print{body{margin:20px}}
+</style></head><body>
+<div class="meta">생성일: 2026-07-06 | 버전: v1.0</div>
+<h1>PrintFlow 가이드</h1>
+<p>생성일: 2026-07 | 버전: v1.0</p>
+<br>
+<h2>앱 개요</h2>
+<p>기존: 텍스트파일 → 조교가 폴더 직접 탐색 → 출력</p>
+<p>PrintFlow: 강사가 앱에서 자료선택·학생선택·계획등록 → 조교가 계획열람·출력·완료</p>
+<br>
+<h2>업무 흐름</h2>
+<p>강사K → 자료선택 → 목록생성 → 학생선택 → 계획등록 → (동기화)</p>
+<p>→ 조교P → 새로고침 → 계획열람 → 출력 → 완료</p>
+<p>→ 조교Q/R → 미완료 이어서 처리</p>
+<br>
+<h2>기본 설정</h2>
+<ul>
+<li>사용자 이름 입력 후 저장 클릭</li>
+<li>자료 DB 폴더: 탐색 버튼으로 선택 후 반드시 저장 & 재스캔 클릭</li>
+<li>동기화 폴더: 탐색 버튼으로 공유 폴더 선택</li>
+</ul>
+<div class="warning">⚠️ 자료 DB 변경 시 반드시 저장 & 재스캔 클릭 — 안 하면 자료 안 보임</div>
+<br>
+<h2>학생 등록</h2>
+<ul>
+<li>학생 관리 메뉴 → + 학생 추가 버튼</li>
+<li>이름, 반, 학교, 학년, 담당강사 입력</li>
+</ul>
+<br>
+<h2>강사(K) 사용법 — 자료 열람 > 폴더 탐색</h2>
+<ul>
+<li>좌측 트리에서 단원 선택 → 우측 파일 목록 확인</li>
+<li>필요한 파일 체크 → 목록에 추가 클릭</li>
+</ul>
+<br>
+<h2>강사(K) 사용법 — 내 목록/계획 탭</h2>
+<ul>
+<li>내 목록/계획 탭 클릭</li>
+<li>저장된 목록 선택 → 이름 변경 버튼으로 명확한 이름 부여</li>
+</ul>
+<br>
+<h2>강사(K) 사용법 — 계획 등록</h2>
+<ul>
+<li>목록 선택 드롭다운에서 목록 선택</li>
+<li>반 선택 입력</li>
+<li>학생 선택 (N명 선택됨 확인)</li>
+<li>수업 예정일 날짜 선택</li>
+<li>N명 × M개 파일 = Task 수 확인 후 계획 등록 (N개) 클릭</li>
+</ul>
+<br>
+<h2>조교(P·Q·R) 사용법 — 출근 즉시 새로고침</h2>
+<ul>
+<li>앱 실행 후 좌측 상단 새로고침 버튼 클릭</li>
+<li>"아직 새로고침 전" → "새로고침 완료" 확인</li>
+</ul>
+<br>
+<h2>조교(P·Q·R) 사용법 — 계획 열람</h2>
+<ul>
+<li>계획 열람 메뉴 클릭</li>
+<li>달력에서 오늘 날짜 클릭</li>
+<li>미완료(주황 배경) 항목 확인</li>
+</ul>
+<br>
+<h2>조교(P·Q·R) 사용법 — 출력 및 완료</h2>
+<ul>
+<li>열기 버튼 → 파일 열기 → 학생 수만큼 출력</li>
+<li>출력 완료 후 반드시 완료 버튼 클릭</li>
+</ul>
+<div class="warning">⚠️ 완료 클릭 안 하면 다음 조교가 중복 출력</div>
+<br>
+<h2>조교 간 인수인계</h2>
+<ul>
+<li>완료한 항목: 초록 배경으로 표시됨</li>
+<li>미완료 항목: 다음 조교가 새로고침 후 이어서 처리</li>
+</ul>
+<br>
+<h2>자주 하는 실수</h2>
+<table>
+<tr><th>증상</th><th>원인</th><th>해결</th></tr>
+<tr><td>자료가 안 보인다</td><td>저장 & 재스캔 미클릭</td><td>재스캔 실행</td></tr>
+<tr><td>강사 계획이 안 보인다</td><td>새로고침 미클릭</td><td>새로고침 클릭</td></tr>
+<tr><td>학생 선택이 안 된다</td><td>학생 관리에 미등록</td><td>학생 관리에서 등록</td></tr>
+<tr><td>계획이 등록 안 된다</td><td>학생 미선택</td><td>학생 선택 후 등록</td></tr>
+<tr><td>출력이 중복되었다</td><td>완료 버튼 미클릭</td><td>완료 처리 철저히</td></tr>
+<tr><td>다른 PC 변경사항 미반영</td><td>새로고침 미클릭</td><td>새로고침 클릭</td></tr>
+</table>
+<br>
+<h2>FAQ</h2>
+<p>Q. 출근 후 가장 먼저 할 일은?</p>
+<p>A. 새로고침 → 계획 열람</p>
+<br>
+<p>Q. 자료 DB 폴더를 바꿨는데 자료가 안 보여요?</p>
+<p>A. 기본 설정에서 저장 & 재스캔 클릭</p>
+<br>
+<p>Q. 완료를 잘못 눌렀어요?</p>
+<p>A. 완료 ↩ 버튼으로 되돌리기 가능</p>
+<br>
+<p>Q. 다른 조교가 처리한 내용이 안 보여요?</p>
+<p>A. 새로고침 클릭</p>
+<br>
+
+<button onclick="window.print()" style="margin-top:40px;padding:10px 24px;background:#3b82f6;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">인쇄하기</button>
+</body></html>

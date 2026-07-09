@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dooly 업무 매뉴얼</title>
+<style>
+  body{font-family:'Malgun Gothic',sans-serif;max-width:800px;
+        margin:0 auto;padding:0 20px 40px;color:#1f2937;line-height:1.7}
+  .sticky-header{position:sticky;top:0;background:white;z-index:10;
+                  margin-bottom:24px}
+  .top-bar{display:flex;justify-content:space-between;align-items:center;
+            padding:20px 0 16px;border-bottom:1px solid #e5e7eb}
+  .top-bar h1{margin:0;font-size:20px;color:#1e3a5f}
+  .top-meta{font-size:12px;color:#6b7280;margin-top:4px}
+  .btn-group{display:flex;gap:8px}
+  .btn-print{padding:6px 14px;background:white;border:1px solid #d1d5db;
+              border-radius:6px;cursor:pointer;font-size:13px;
+              font-family:inherit}
+  .btn-pdf{padding:6px 14px;background:#16a34a;color:white;border:none;
+            border-radius:6px;cursor:pointer;font-size:13px;
+            font-family:inherit}
+  .btn-print:hover{background:#f9fafb}
+  .btn-pdf:hover{background:#15803d}
+  h1{color:#1e3a5f;border-bottom:3px solid #3b82f6;padding-bottom:10px}
+  h2{color:#1e40af;border-left:4px solid #3b82f6;padding-left:12px;
+      margin-top:32px}
+  h3{color:#374151;margin-top:20px}
+  h4{color:#4b5563;margin-top:16px;font-size:14px}
+  ul{padding-left:20px;margin:8px 0}
+  li{margin:6px 0}
+  code{background:#f3f4f6;padding:2px 6px;border-radius:4px;
+        font-family:'Consolas',monospace;font-size:13px;color:#1e40af}
+  pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;
+       overflow-x:auto;margin:12px 0;font-size:13px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0;font-size:inherit}
+  .warning{background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;
+            padding:12px 16px;margin:12px 0;color:#92400e}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  th,td{border:1px solid #e5e7eb;padding:8px 12px;text-align:left}
+  th{background:#f3f4f6}
+  .pdf-tip{margin-top:32px;font-size:12px;color:#9ca3af;
+            padding:10px 14px;background:#f9fafb;border-radius:6px}
+  /* ── 탭 구조 ── */
+  .tab-bar{display:flex;gap:0;border-bottom:2px solid #e5e7eb;margin:0}
+  .tab-btn{padding:10px 24px;background:none;border:none;font-size:14px;
+            font-family:inherit;cursor:pointer;color:#6b7280;
+            border-bottom:3px solid transparent;margin-bottom:-2px;
+            transition:all 0.15s}
+  .tab-btn:hover{color:#1e40af}
+  .tab-btn.active{color:#1e40af;font-weight:600;
+                   border-bottom:3px solid #3b82f6}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+  .tab-empty{padding:40px 0;text-align:center;color:#9ca3af;font-size:14px}
+  @media print{
+    /* 레이아웃 */
+    .sticky-header{position:static}
+    .top-bar{border-bottom:none}
+    body{padding:0}
+
+    /* 버튼·안내 숨김 */
+    .btn-group{display:none}
+    .pdf-tip{display:none}
+    .tab-bar{display:none}
+
+    /* 탭 전체 출력 */
+    .tab-panel{display:block !important}
+
+    /* 탭 간 구분선 */
+    .tab-panel + .tab-panel{
+      border-top:2px solid #e5e7eb;
+      margin-top:32px;
+      padding-top:32px;
+    }
+
+    /* 페이지 나누기 — 탭별로 새 페이지 (선택) */
+    /* .tab-panel{page-break-before:always} */
+  }
+</style></head><body>
+
+<div class="sticky-header">
+  <div class="top-bar">
+    <div>
+      <h1 style="margin:0;font-size:20px;border:none;padding:0;">
+        Dooly 업무 매뉴얼 (SOP)
+      </h1>
+      <div class="top-meta">생성일: 2026-07-09 | 버전: v1.0</div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-print" onclick="window.print()">🖨️ 인쇄</button>
+      <button class="btn-pdf" onclick="savePDF()">📄 PDF 저장</button>
+    </div>
+  </div>
+  <div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('guide', this)">
+    📋 가이드
+  </button>
+  <button class="tab-btn" onclick="switchTab('rule', this)">
+    📌 업무규칙
+  </button>
+  <button class="tab-btn" onclick="switchTab('faq', this)">
+    ❓ FAQ
+  </button>
+</div>
+</div>
+
+
+<div id="tab-guide" class="tab-panel active">
+<h1>Dooly 가이드</h1>
+<p>생성일: 2026-07 | 버전: v1.0</p>
+<br>
+<h2>앱 개요</h2>
+<p>학원 AI 업무 도우미 PWA (KING Assistant OS)</p>
+<p>강사: 업무 지시 / 조교: 업무 실행</p>
+<br>
+<h2>업무 흐름</h2>
+<p>강사 → 업무 추가 → JSON 다운로드 → (전달) → 조교 → JSON 업로드 → 업무 실행</p>
+<br>
+<h2>업무① 업무 받기</h2>
+<p>(업무 탭 → JSON 업로드)</p>
+<ul>
+<li>강사가 전달한 JSON 파일을 JSON 업로드로 불러오기</li>
+<li>업무 목록 확인 (우선순위/진행상황/담당자 필터)</li>
+</ul>
+<div class="warning">⚠️ 업무 목록이 비어 있으면 JSON 업로드를 먼저 실행</div>
+<br>
+<h2>업무② 업무 실행</h2>
+<p>(업무 탭)</p>
+<ul>
+<li>업무 선택 → 진행 → 완료 처리</li>
+<li>오늘 할 일: 홈 탭 달력에서 날짜 클릭 → 업무 확인</li>
+</ul>
+<br>
+<h2>업무③ 모르면 SOP</h2>
+<p>(SOP 탭)</p>
+<ul>
+<li>업무 절차가 궁금할 때</li>
+<li>카테고리 필터: 복테/오답노트/채점/비품/장비</li>
+</ul>
+<br>
+<h2>업무⑤ 그래도 모르겠으면 AI</h2>
+<p>(Dooly 탭)</p>
+<ul>
+<li>기본: Mock 모드 (오프라인, 사전 등록 답변)</li>
+<li>온라인: Gemini AI 모드 (실시간 AI 답변)</li>
+<li>SOP/FAQ 참조 태그 자동 표시</li>
+</ul>
+<br>
+<h2>참고 — 설정</h2>
+<p>(설정 탭, 최초 1회)</p>
+<ul>
+<li>담당자 추가/관리</li>
+<li>DB 폴더 경로 설정</li>
+</ul>
+
+</div>
+
+<div id="tab-rule" class="tab-panel">
+<h1>Dooly 업무 규칙</h1>
+<br>
+<p>(추후 작성)</p>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+
+</div>
+
+<div id="tab-faq" class="tab-panel">
+<h2>업무④ 안 되면 FAQ</h2>
+<p>(FAQ 탭)</p>
+<ul>
+<li>특정 상황 해결책이 궁금할 때</li>
+<li>카테고리 필터: 복테/오답노트/채점/비품/제본기</li>
+</ul>
+<br>
+<h2>자주 하는 실수</h2>
+<table>
+<tr><th>증상</th><th>원인</th><th>해결</th></tr>
+<tr><td>업무가 안 보인다</td><td>JSON 업로드 미실행</td><td>JSON 업로드 클릭</td></tr>
+<tr><td>동기화가 안 된다</td><td>오프라인 상태</td><td>네트워크 확인 후 동기화</td></tr>
+<tr><td>AI 답변이 없다</td><td>Mock 모드 상태</td><td>Dooly 탭에서 모드 확인</td></tr>
+</table>
+<br>
+<h2>FAQ</h2>
+<p>Q. 강사가 등록한 업무를 어떻게 받나요?</p>
+<p>A. 강사가 JSON 다운로드로 저장한 파일을 받아 JSON 업로드로 불러옵니다.</p>
+<br>
+<p>Q. 언제 SOP를 보고, 언제 FAQ를 보나요?</p>
+<p>A. 업무 절차가 궁금하면 SOP, 특정 상황의 해결책이 궁금하면 FAQ를 봅니다.</p>
+<br>
+<p>Q. AI 챗봇이 틀린 답을 줘요.</p>
+<p>A. Mock 모드는 사전 등록 답변만 가능합니다. Gemini 모드로 전환하세요.</p>
+<br>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+<br>
+<h1>Dooly FAQ</h1>
+<br>
+<p>(추후 작성)</p>
+
+</div>
+
+
+<div class="pdf-tip">
+  💡 <b>PDF 저장 방법</b>: [📄 PDF 저장] 버튼 클릭 →
+  인쇄 창에서 프린터를 <b>Microsoft Print to PDF</b> 선택 → 인쇄
+</div>
+
+<script>
+// ── 탭 전환 ──────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function savePDF() {
+  var orig = document.title;
+  document.title = 'Dooly_SOP_v1.0';
+  window.print();
+  setTimeout(function() { document.title = orig; }, 1000);
+}
+</script>
+</body></html>
