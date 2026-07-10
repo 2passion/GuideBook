@@ -3,18 +3,18 @@ Project: GuideBook Generator
 App: Dooly
 Generator: v3.8.1
 Result: PASS
-Generated: 2026-07-10 20:57
+Generated: 2026-07-10 21:11
 
 Inputs:
   guide_Dooly.md: 2026-07-10 20:51
-  rule_Dooly.md: 2026-07-10 20:55
+  rule_Dooly.md: 2026-07-10 21:08
   faq_Dooly.md: 2026-07-10 20:55
   reference_Dooly.md: 파일 없음
 ---
 
 # Regression Report
 
-생성일: 2026-07-10 20:57  |  Generator: v3.8.1  |  App: Dooly  |  Mode: both
+생성일: 2026-07-10 21:11  |  Generator: v3.8.1  |  App: Dooly  |  Mode: both
 
 ---
 
