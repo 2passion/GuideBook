@@ -3,18 +3,18 @@ Project: GuideBook Generator
 App: KingTestMaker
 Generator: v3.8.1
 Result: PASS
-Generated: 2026-07-09 16:04
+Generated: 2026-07-10 19:32
 
 Inputs:
-  guide_KingTestMaker.md: 2026-07-09 13:26
-  rule_KingTestMaker.md: 2026-07-06 22:11
-  faq_KingTestMaker.md: 2026-07-06 22:11
+  guide_KingTestMaker.md: 2026-07-10 19:15
+  rule_KingTestMaker.md: 2026-07-10 19:30
+  faq_KingTestMaker.md: 2026-07-10 19:32
   reference_KingTestMaker.md: 파일 없음
 ---
 
 # Regression Report
 
-생성일: 2026-07-09 16:04  |  Generator: v3.8.1  |  App: KingTestMaker  |  Mode: both
+생성일: 2026-07-10 19:32  |  Generator: v3.8.1  |  App: KingTestMaker  |  Mode: both
 
 ---
 
