@@ -20,10 +20,11 @@ Phase          : Phase B — 콘텐츠 고도화
 GitHub : https://github.com/2passion/GuideBook
 Branch : main
 Tag    : v1.1
-Commit : 7c591fe (최신)
+Commit       : f6f2527 (최신)
+Last Updated : 2026-07-10 (Regression PASS / Git Push 완료)
 ```
 
-### Regression 기준선 (Phase B 시작 기준)
+### Regression Baseline (Phase B)
 | 앱 | Overall | PASS | FAIL | N/A |
 |----|---------|------|------|-----|
 | PrintFlow | ✅ PASS | 16 | 0 | 0 |
@@ -66,23 +67,24 @@ Commit : 7c591fe (최신)
    Implementation: v2.x
 
 ✅ GitHub Commit 이력
-   cd0b337  docs: finalize PrintFlow content baseline
-   76cc3fb  chore: ignore generator archive
-   78e23c4  docs: add archive gitignore work orders
-   0bc1da3  docs: add deferred automation hooks design
+   f6f2527  docs: add PrintFlow Phase B milestone handover
    7c591fe  docs: update automation hooks design to v1.1
+   0bc1da3  docs: add deferred automation hooks design
+   78e23c4  docs: add archive gitignore work orders
+   76cc3fb  chore: ignore generator archive
+   cd0b337  docs: finalize PrintFlow content baseline
 ```
 
 ---
 
 ## 3. 현재 기준 문서 (4종)
 
-| 역할 | 문서 | 상태 |
-|------|------|------|
-| System Baseline | 8_SYSTEM_PROMPT_v5.0.md | ✅ Final |
-| Project Baseline | 11_HANDOVER_v1.2.md | ✅ 현재 |
-| Workflow Baseline | 워크플로우_가이드.md | ✅ v1.4 |
-| Knowledge Base | 시행착오_기록.md | ✅ #011까지 |
+| 역할 | 문서 | 설명 | 상태 |
+|------|------|------|------|
+| System Baseline | 8_SYSTEM_PROMPT_v5.0.md | 프로젝트 운영 원칙 | ✅ Final |
+| Project Baseline | 11_HANDOVER_v1.2.md | 현재 프로젝트 상태 | ✅ 현재 |
+| Workflow Baseline | 워크플로우_가이드.md | 작업 절차 | ✅ v1.4 |
+| Knowledge Base | 시행착오_기록.md | 문제 해결 이력 | ✅ #011까지 |
 
 ---
 
@@ -216,7 +218,25 @@ CheckFlow
 
 ---
 
-## 9. 새 채팅 시작 방법
+## 9. Current Milestone
+
+```
+Phase B — 콘텐츠 고도화
+
+PrintFlow     ✅ 완료 (Reference Implementation)
+              ↓
+KingTestMaker ▶ 진행 예정 (다음 세션 첫 작업)
+              ↓
+Dooly
+              ↓
+CheckFlow
+              ↓
+Phase B 완료 → v1.2 Tag
+```
+
+---
+
+## 10. 새 채팅 시작 방법
 
 1. claude.ai → 가이드북 생성기 프로젝트 열기
 2. 이 파일(11_HANDOVER_v1.2.md) 첨부
