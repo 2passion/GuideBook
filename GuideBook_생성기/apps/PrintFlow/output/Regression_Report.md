@@ -3,18 +3,18 @@ Project: GuideBook Generator
 App: PrintFlow
 Generator: v3.8.1
 Result: PASS
-Generated: 2026-07-09 16:04
+Generated: 2026-07-10 14:11
 
 Inputs:
-  guide_PrintFlow.md: 2026-07-06 23:01
-  rule_PrintFlow.md: 2026-07-06 22:11
+  guide_PrintFlow.md: 2026-07-10 12:41
+  rule_PrintFlow.md: 2026-07-10 14:11
   faq_PrintFlow.md: 2026-07-06 22:11
-  reference_PrintFlow.md: 파일 없음
+  reference_PrintFlow.md: 2026-07-10 14:01
 ---
 
 # Regression Report
 
-생성일: 2026-07-09 16:04  |  Generator: v3.8.1  |  App: PrintFlow  |  Mode: both
+생성일: 2026-07-10 14:11  |  Generator: v3.8.1  |  App: PrintFlow  |  Mode: both
 
 ---
 
@@ -23,7 +23,7 @@ Inputs:
 ✓ guide_PrintFlow.md 읽기
 ✓ rule_PrintFlow.md 읽기
 ✓ faq_PrintFlow.md 읽기
-- reference_PrintFlow.md (optional) (reference 없음 → N/A)
+✓ reference_PrintFlow.md (optional)
 ✓ SOP HTML 생성
 ✓ SOP MD 생성
 ✓ Tutorial HTML 생성
@@ -49,7 +49,7 @@ Inputs:
 
 ---
 
-## Overall  ✅ PASS (N/A 포함)
+## Overall  ✅ PASS
 
 ---
 
@@ -57,9 +57,9 @@ Inputs:
 
 | 항목 | 수 |
 |------|-----|
-| ✓ PASS | 15 |
+| ✓ PASS | 16 |
 | ✗ FAIL | 0 |
-| - N/A  | 1 |
+| - N/A  | 0 |
 
 ---
 

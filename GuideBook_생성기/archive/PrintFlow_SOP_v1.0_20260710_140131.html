@@ -240,51 +240,39 @@ D 김철수 3개.pdf  (테스트, 3문제 틀림)</code></pre>
 <br>
 <h2>검사 규칙</h2>
 <br>
-<p>검사는 숙제 검사(HW)와 테스트 검사(TEST) 두 가지로 구분한다.</p>
+<p>검사는 숙제 검사(A)와 테스트 검사(B) 두 가지로 구분한다.</p>
 <br>
-<h3>HW. 숙제 검사 대상</h3>
-<pre><code>HW_A-01 교재 검사
-HW_A-02 복테 검사
-HW_A-03 오답노트 검사
-HW_B-01 숙제 프린트 검사
-HW_C-01 내신모의 검사
-HW_C-02 기출 검사</code></pre>
+<h3>A. 숙제 검사 대상</h3>
+<pre><code>A-01 교재 검사
+A-02 복테 검사
+A-03 오답노트 검사
+A-04 숙제 프린트 검사
+A-06 내신모의 검사
+A-07 기출 검사</code></pre>
 <br>
-<h3>TEST. 테스트 검사 대상</h3>
-<pre><code>TEST_B-02 테스트 프린트 검사
-TEST_C-01 내신모의 검사
-TEST_C-02 기출 검사
-TEST_D-01 진단평가 검사
-TEST_D-02 입학테스트 검사</code></pre>
+<h3>B. 테스트 검사 대상</h3>
+<pre><code>B-05 테스트 프린트 검사
+B-06 내신모의 검사
+B-07 기출 검사
+B-08 진단평가 검사
+B-09 입학테스트 검사</code></pre>
 <br>
 <br>
 <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
 <br>
 <h2>자료 분류 코드</h2>
 <br>
-<h3>대분류</h3>
-<br>
-<table>
-<tr><th>코드</th><th>대분류</th></tr>
-<tr><td>A</td><td>교재(Book)</td></tr>
-<tr><td>B</td><td>프린트(Print)</td></tr>
-<tr><td>C</td><td>시험대비(Exam)</td></tr>
-<tr><td>D</td><td>성취도(Level)</td></tr>
-</table>
-<br>
-<h3>코드표</h3>
-<br>
 <table>
 <tr><th>코드</th><th>용도</th></tr>
-<tr><td>A-01</td><td>교재 원본 자료</td></tr>
-<tr><td>A-02</td><td>복습 테스트(복테)</td></tr>
-<tr><td>A-03</td><td>학생별 오답노트</td></tr>
-<tr><td>B-01</td><td>숙제 출력 자료</td></tr>
-<tr><td>B-02</td><td>테스트 출력 자료</td></tr>
-<tr><td>C-01</td><td>내신대비 모의고사</td></tr>
-<tr><td>C-02</td><td>기출 자료</td></tr>
-<tr><td>D-01</td><td>진단평가</td></tr>
-<tr><td>D-02</td><td>입학테스트</td></tr>
+<tr><td>01</td><td>교재 원본 자료</td></tr>
+<tr><td>02</td><td>복습 테스트(복테)</td></tr>
+<tr><td>03</td><td>학생별 오답노트</td></tr>
+<tr><td>04</td><td>숙제 출력 자료</td></tr>
+<tr><td>05</td><td>테스트 출력 자료</td></tr>
+<tr><td>06</td><td>내신 대비 모의고사</td></tr>
+<tr><td>07</td><td>기출문제 자료</td></tr>
+<tr><td>08</td><td>진단평가</td></tr>
+<tr><td>09</td><td>입학테스트</td></tr>
 </table>
 <br>
 <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
@@ -312,37 +300,20 @@ TEST_D-02 입학테스트 검사</code></pre>
 <br>
 <h3>교재 코드</h3>
 <br>
-<h4>학년별 grade</h4>
-<pre><code>grade-a 초등 / grade-b 중등 / grade-c 고등</code></pre>
-<br>
-<h4>단계별 step</h4>
-<pre><code>step-a 개념서 / step-b 유형서 / step-c 심화서
-step-d 모의고사 / step-e 기출</code></pre>
-<br>
-<h4>교재 목록</h4>
-<br>
 <table>
-<tr><th>코드</th><th>교재명</th><th>구분</th></tr>
-<tr><td>grade-a_step-a</td><td>기본+응용</td><td>초등 개념서</td></tr>
-<tr><td>grade-a_step-b</td><td>쎈</td><td>초등 유형서</td></tr>
-<tr><td>grade-a_step-c</td><td>최상위S</td><td>초등 심화서</td></tr>
-<tr><td>grade-b_step-a</td><td>개념+유형</td><td>중등 개념서</td></tr>
-<tr><td>grade-b_step-b</td><td>쎈</td><td>중등 유형서</td></tr>
-<tr><td>grade-b_step-c</td><td>일품</td><td>중등 심화서</td></tr>
-<tr><td>grade-b_step-c</td><td>블랙라벨</td><td>중등 심화서</td></tr>
-<tr><td>grade-b_step-d</td><td>내신모의</td><td>중등 모의고사</td></tr>
-<tr><td>grade-b_step-e</td><td>기출</td><td>중등 기출</td></tr>
-<tr><td>grade-c_step-a</td><td>개념원리</td><td>고등 개념서</td></tr>
-<tr><td>grade-c_step-b</td><td>쎈</td><td>고등 유형서</td></tr>
-<tr><td>grade-c_step-b</td><td>마플시너지</td><td>고등 유형서</td></tr>
-<tr><td>grade-c_step-c</td><td>일품</td><td>고등 심화서</td></tr>
-<tr><td>grade-c_step-c</td><td>올림포스 고난도</td><td>고등 심화서</td></tr>
-<tr><td>grade-c_step-c</td><td>고쟁이</td><td>고등 심화서</td></tr>
-<tr><td>grade-c_step-c</td><td>블랙라벨</td><td>고등 심화서</td></tr>
-<tr><td>grade-c_step-d</td><td>자이스토리(고1)</td><td>고등 모의고사</td></tr>
-<tr><td>grade-c_step-d</td><td>자이스토리(고2)</td><td>고등 모의고사</td></tr>
-<tr><td>grade-c_step-e</td><td>너기출</td><td>고등 기출</td></tr>
-<tr><td>grade-c_step-e</td><td>자이스토리(고3)</td><td>고등 기출</td></tr>
+<tr><th>코드</th><th>교재명</th><th>대상</th></tr>
+<tr><td>a</td><td>기본+응용</td><td>초등</td></tr>
+<tr><td>b</td><td>쎈</td><td>초등</td></tr>
+<tr><td>c</td><td>최상위S</td><td>초등</td></tr>
+<tr><td>d</td><td>개념+유형</td><td>중등</td></tr>
+<tr><td>e</td><td>쎈</td><td>중등</td></tr>
+<tr><td>f</td><td>블랙라벨</td><td>중등</td></tr>
+<tr><td>g</td><td>개념원리</td><td>고등</td></tr>
+<tr><td>h</td><td>쎈</td><td>고등</td></tr>
+<tr><td>i</td><td>마플시너지</td><td>고등</td></tr>
+<tr><td>j</td><td>올림포스 고난도</td><td>고등</td></tr>
+<tr><td>k</td><td>고쟁이</td><td>고등</td></tr>
+<tr><td>m</td><td>자이스토리</td><td>고등</td></tr>
 </table>
 
 </div>
