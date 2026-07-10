@@ -84,7 +84,7 @@
       <h1 style="margin:0;font-size:20px;border:none;padding:0;">
         Dooly 업무 매뉴얼 (SOP)
       </h1>
-      <div class="top-meta">생성일: 2026-07-09 | 버전: v1.0</div>
+      <div class="top-meta">생성일: 2026-07-10 | 버전: v1.0</div>
     </div>
     <div class="btn-group">
       <button class="btn-print" onclick="window.print()">🖨️ 인쇄</button>
@@ -152,20 +152,56 @@
 <li>담당자 추가/관리</li>
 <li>DB 폴더 경로 설정</li>
 </ul>
+<br>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
 
 </div>
 
 <div id="tab-rule" class="tab-panel">
 <h1>Dooly 업무 규칙</h1>
 <br>
-<p>(추후 작성)</p>
+<h2>JSON 규칙</h2>
+<br>
+<ul>
+<li>강사가 다운로드한 JSON 파일은 당일 업무 시작 전 반드시 업로드합니다.</li>
+<li>JSON 파일은 덮어쓰지 않고 날짜별로 보관합니다.</li>
+<li>조교는 JSON 파일을 임의로 수정하지 않습니다.</li>
+</ul>
+<br>
+<h2>업무 처리 규칙</h2>
+<br>
+<ul>
+<li>업무는 반드시 Dooly 앱에서 완료 처리합니다.</li>
+<li>완료 처리 없이 다음 조교에게 넘기지 않습니다.</li>
+<li>업무 목록이 비어 있으면 JSON 업로드를 먼저 실행합니다.</li>
+</ul>
+<br>
+<h2>AI 챗봇 사용 규칙</h2>
+<br>
+<ul>
+<li>기본 모드는 Mock 모드(오프라인)입니다.</li>
+<li>실시간 AI 답변이 필요할 때만 Gemini 모드로 전환합니다.</li>
+<li>AI 답변은 참고용이며, 최종 판단은 SOP/FAQ를 우선합니다.</li>
+</ul>
+<br>
+<h2>설정 규칙</h2>
+<br>
+<ul>
+<li>담당자 추가/관리는 설정 탭에서 최초 1회 실행합니다.</li>
+<li>DB 폴더 경로는 최초 설정 후 임의로 변경하지 않습니다.</li>
+</ul>
+<br>
 <br>
 <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
 
 </div>
 
 <div id="tab-faq" class="tab-panel">
+<h1>Dooly FAQ</h1>
+<br>
 <h2>업무④ 안 되면 FAQ</h2>
+<br>
 <p>(FAQ 탭)</p>
 <ul>
 <li>특정 상황 해결책이 궁금할 때</li>
@@ -173,6 +209,7 @@
 </ul>
 <br>
 <h2>자주 하는 실수</h2>
+<br>
 <table>
 <tr><th>증상</th><th>원인</th><th>해결</th></tr>
 <tr><td>업무가 안 보인다</td><td>JSON 업로드 미실행</td><td>JSON 업로드 클릭</td></tr>
@@ -181,6 +218,7 @@
 </table>
 <br>
 <h2>FAQ</h2>
+<br>
 <p>Q. 강사가 등록한 업무를 어떻게 받나요?</p>
 <p>A. 강사가 JSON 다운로드로 저장한 파일을 받아 JSON 업로드로 불러옵니다.</p>
 <br>
@@ -189,13 +227,6 @@
 <br>
 <p>Q. AI 챗봇이 틀린 답을 줘요.</p>
 <p>A. Mock 모드는 사전 등록 답변만 가능합니다. Gemini 모드로 전환하세요.</p>
-<br>
-<br>
-<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
-<br>
-<h1>Dooly FAQ</h1>
-<br>
-<p>(추후 작성)</p>
 
 </div>
 
