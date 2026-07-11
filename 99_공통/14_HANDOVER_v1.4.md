@@ -20,7 +20,7 @@ Phase          : Phase B — 콘텐츠 고도화
 GitHub : https://github.com/2passion/GuideBook
 Branch : main
 Tag    : v1.1
-Commit : 9395b0f (최신)
+Commit : da01131 (최신)
 ```
 
 ### Regression Baseline (Phase B)
@@ -53,8 +53,9 @@ Commit : 9395b0f (최신)
    6cd9678  docs: add Dooly Phase B work orders
    68b393a  fix: remove unconfirmed rules from rule_Dooly and regenerate output
    094c600  docs: add Dooly fix and Git work orders
+   417c40a  docs: add Dooly Phase B operational docs
    9395b0f  docs: add Dooly Phase B milestone handover v1.4
-417c40a  docs: add Dooly Phase B operational docs
+   da01131  docs: add Dooly Phase B milestone handover v1.4 (final)
 ```
 
 ---
@@ -200,7 +201,7 @@ C:\Obsidian\GuideBook\
 │
 ├── 99_공통\
 │   ├── 8_SYSTEM_PROMPT_v5.0.md
-│   ├── 13_HANDOVER_v1.4.md       ← 이 파일
+│   ├── 14_HANDOVER_v1.4.md       ← 이 파일
 │   ├── 29_Git_Commit_Workflow_v1.0.md
 │   ├── 워크플로우_가이드.md
 │   ├── 시행착오_기록.md
