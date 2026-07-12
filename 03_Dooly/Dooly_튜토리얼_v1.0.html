@@ -1,149 +1,1053 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Dooly 튜토리얼</title>
 <style>
   *{box-sizing:border-box}
-  body{font-family:'Malgun Gothic',sans-serif;background:#f9fafb;margin:0;padding:20px;color:#1f2937}
-  .container{max-width:720px;margin:0 auto;background:white;border-radius:16px;padding:32px;box-shadow:0 4px 6px rgba(0,0,0,.07)}
-  .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-  .header h1{margin:0;font-size:18px;color:#1e3a5f}
-  .print-btn{padding:6px 14px;background:white;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;font-size:13px}
-  .step-num{font-size:13px;color:#6b7280;font-weight:600;letter-spacing:.05em;margin-bottom:8px}
+  body{font-family:'Malgun Gothic',sans-serif;background:#f9fafb;
+        margin:0;padding:20px;color:#1f2937}
+  .container{max-width:720px;margin:0 auto;background:white;
+              border-radius:16px;padding:32px;
+              box-shadow:0 4px 6px rgba(0,0,0,.07)}
+  
+  .step-num{font-size:13px;color:#6b7280;font-weight:600;
+             letter-spacing:.05em;margin-bottom:8px}
   h2{color:#1e3a5f;margin:0 0 16px;font-size:22px}
-  .progress-bar{background:#e5e7eb;border-radius:99px;height:6px;margin-bottom:24px}
-  .progress-fill{background:#3b82f6;height:100%;border-radius:99px;transition:width .3s}
-  .screen-area{background:#f3f4f6;border-radius:12px;min-height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;padding:16px}
-  .mock-screen{color:#9ca3af;font-size:14px;text-align:center}
-  .content p, .content li{font-size:15px;line-height:1.7;margin:6px 0}
-  .checkpoint{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px 16px;margin:20px 0;color:#166534;font-size:14px}
-  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid #e5e7eb}
-  .nav button{padding:10px 24px;background:#3b82f6;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-family:inherit}
+  .progress-bar{background:#e5e7eb;border-radius:99px;
+                 height:6px;margin-bottom:24px}
+  .progress-fill{background:#3b82f6;height:100%;
+                  border-radius:99px;transition:width .3s}
+  .screen-area{
+    background:#f3f4f6;border-radius:12px;min-height:200px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:24px;padding:16px;text-align:center;
+    position:relative;
+  }
+  .upload-zone{
+    width:100%;min-height:160px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:10px;
+    border:2px dashed #d1d5db;border-radius:10px;cursor:pointer;
+    transition:all 0.2s;padding:20px;
+  }
+  .upload-zone:hover,.upload-zone.drag-over{
+    border-color:#3b82f6;background:#eff6ff;
+  }
+  .upload-icon{font-size:36px;}
+  .upload-text{font-size:14px;color:#6b7280;line-height:1.6;}
+  .upload-text small{font-size:12px;color:#9ca3af;}
+  .img-preview{
+    position:relative;width:100%;display:flex;
+    justify-content:center;align-items:center;
+  }
+  .img-delete{
+    position:absolute;top:-8px;right:-8px;
+    width:24px;height:24px;border-radius:50%;
+    background:#ef4444;color:white;border:none;
+    cursor:pointer;font-size:12px;font-weight:bold;
+    display:flex;align-items:center;justify-content:center;
+    line-height:1;
+  }
+  .img-delete:hover{background:#dc2626;}
+  .slide-viewer{
+    width:100%;display:flex;flex-direction:column;
+    align-items:center;gap:10px;
+  }
+  .slide-display{
+    position:relative;width:100%;display:flex;justify-content:center;
+  }
+  .slide-nav{display:flex;align-items:center;gap:12px;}
+  .slide-btn{
+    background:#3b82f6;color:white;border:none;border-radius:6px;
+    width:32px;height:32px;cursor:pointer;font-size:16px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .slide-btn:hover{background:#2563eb;}
+  .slide-counter{
+    font-size:14px;color:#6b7280;min-width:48px;text-align:center;
+  }
+  .thumb-tray{
+    display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
+    padding:6px;min-height:54px;
+  }
+  .thumb-item{
+    width:48px;height:48px;border-radius:6px;overflow:hidden;
+    border:2px solid transparent;cursor:grab;position:relative;
+    flex-shrink:0;
+  }
+  .thumb-item.active{border-color:#3b82f6;}
+  .thumb-item img{
+    width:100%;height:100%;object-fit:cover;pointer-events:none;
+  }
+  .thumb-item.drag-over-thumb{border-color:#f59e0b;opacity:0.7;}
+  .add-btn{
+    background:white;border:1px dashed #9ca3af;border-radius:6px;
+    padding:4px 12px;font-size:13px;color:#6b7280;cursor:pointer;
+    margin-top:2px;
+  }
+  .add-btn:hover{border-color:#3b82f6;color:#3b82f6;}
+  .content p,.content li{font-size:15px;line-height:1.7;margin:6px 0}
+  .content ul{padding-left:20px;margin:8px 0}
+  .warning{background:#fffbeb;border:1px solid #f59e0b;
+            border-radius:8px;padding:12px 16px;margin:12px 0;
+            color:#92400e;font-size:14px}
+  .checkpoint{background:#f0fdf4;border:1px solid #86efac;
+               border-radius:8px;padding:12px 16px;margin:20px 0;
+               color:#166534;font-size:14px}
+  .nav{display:flex;justify-content:space-between;align-items:center;
+        margin-top:24px;padding-top:20px;border-top:1px solid #e5e7eb}
+  .nav button{padding:10px 24px;background:#3b82f6;color:white;
+               border:none;border-radius:8px;cursor:pointer;
+               font-size:14px;font-family:inherit}
   .nav button:disabled{background:#d1d5db;cursor:default}
   .nav button:hover:not(:disabled){background:#2563eb}
-  .complete-list{list-style:none;padding:0}
-  .complete-list li{padding:10px 14px;background:#f0fdf4;border-radius:8px;margin:8px 0;font-size:14px}
   @media(max-width:600px){.container{padding:20px}}
-  @media print{.nav{display:none}}
-</style>
-</head>
-<body>
+  @media print{
+    .nav,.role-tabs{display:none}
+    div[style*="gap:8px"]{display:none}
+  }
+</style></head><body>
 <div class="container">
-  <div class="header">
-    <h1>Dooly 튜토리얼</h1>
-    <button class="print-btn" onclick="window.print()">인쇄</button>
-  </div>
-
-  <div class="step" id="step-0">
-    <div class="step-num">STEP 1 / 4</div>
-    <h2>기본 설정 — 사용자 이름·저장 폴더</h2>
-    <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
-    <div class="screen-area">
-      <div class="mock-screen">📸 기본 설정 화면<br><small>사용자 이름 입력 + 문서 저장 폴더 지정</small></div>
-    </div>
-    <div class="content">
-      <p>1. 앱을 처음 실행하면 <b>기본 설정</b> 화면이 나타납니다.</p>
-      <p>2. <b>사용자 이름</b>을 입력하고 <b>저장</b> 버튼을 클릭합니다.</p>
-      <p>3. <b>문서 저장 폴더</b>를 탐색 버튼으로 지정합니다.</p>
-    </div>
-    <div class="checkpoint">✅ 저장 완료 메시지가 뜨면 다음 단계로 진행하세요.</div>
-    <div class="nav">
-      <button onclick="go(-1)" disabled>← 이전</button>
-      <span>1 / 4</span>
-      <button onclick="go(1)">다음 →</button>
-    </div>
-  </div>
-
-  <div class="step" id="step-1" style="display:none">
-    <div class="step-num">STEP 2 / 4</div>
-    <h2>새 문서 만들기</h2>
-    <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
-    <div class="screen-area">
-      <div class="mock-screen">📸 새 문서 화면<br><small>새 문서 버튼, 제목·카테고리 입력란</small></div>
-    </div>
-    <div class="content">
-      <p>1. <b>새 문서</b> 버튼을 클릭합니다.</p>
-      <p>2. 제목과 카테고리를 입력합니다.</p>
-    </div>
-    <div class="checkpoint">✅ 새 문서 화면이 열리면 다음 단계로 진행하세요.</div>
-    <div class="nav">
-      <button onclick="go(-1)">← 이전</button>
-      <span>2 / 4</span>
-      <button onclick="go(1)">다음 →</button>
+  <div style="display:flex;justify-content:space-between;
+              align-items:center;margin-bottom:24px;">
+    <h1 style="margin:0;font-size:18px;color:#1e3a5f;">
+      Dooly 튜토리얼</h1>
+    <div style="display:flex;gap:8px;">
+      <button onclick="window.print()"
+              style="padding:6px 14px;background:white;
+                     border:1px solid #d1d5db;border-radius:6px;
+                     cursor:pointer;font-size:13px;font-family:inherit;">
+        🖨️ 인쇄
+      </button>
+      <button onclick="tutorialPDF()"
+              style="padding:6px 14px;background:#16a34a;color:white;
+                     border:none;border-radius:6px;cursor:pointer;
+                     font-size:13px;font-family:inherit;">
+        📄 PDF
+      </button>
+      <button onclick="clearAllImages()"
+              style="padding:6px 14px;background:white;
+                     border:1px solid #d1d5db;border-radius:6px;
+                     cursor:pointer;font-size:13px;font-family:inherit;"
+              title="모든 STEP 이미지 삭제">
+        🗑️ 이미지 초기화
+      </button>
     </div>
   </div>
-
-  <div class="step" id="step-2" style="display:none">
-    <div class="step-num">STEP 3 / 4</div>
-    <h2>내용 작성 및 저장</h2>
-    <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
-    <div class="screen-area">
-      <div class="mock-screen">📸 문서 편집 화면<br><small>본문 작성 영역 + 저장 버튼</small></div>
-    </div>
-    <div class="content">
-      <p>1. 본문을 작성합니다.</p>
-      <p>2. <b>저장</b> 버튼을 클릭해 문서를 저장합니다.</p>
-    </div>
-    <div class="checkpoint">✅ 저장 완료 메시지가 뜨면 다음 단계로 진행하세요.</div>
-    <div class="nav">
-      <button onclick="go(-1)">← 이전</button>
-      <span>3 / 4</span>
-      <button onclick="go(1)">다음 →</button>
-    </div>
+  
+<div class="sstep" id="sstep-0" style="display:block">
+  <div class="step-num">STEP 1 / 14</div>
+  <h2>앱 개요</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:7%"></div>
   </div>
+  <div class="screen-area" id="screen-s0">
 
-  <div class="step" id="step-3" style="display:none">
-    <div class="step-num">STEP 4 / 4</div>
-    <h2>검색 및 공유</h2>
-    <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-    <div class="screen-area">
-      <div class="mock-screen">📸 검색 화면<br><small>검색창 + 공유 버튼</small></div>
+    <div class="slide-viewer" id="viewer-s0" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s0" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',0)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',0)">&#8592;</button>
+        <span class="slide-counter" id="counter-s0">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',0)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s0"></div>
+      <button class="add-btn" onclick="triggerUpload('s',0)">+ 이미지 추가</button>
     </div>
-    <div class="content">
-      <p>1. 상단 <b>검색</b> 창에 키워드를 입력해 문서를 찾습니다.</p>
-      <p>2. <b>공유</b> 버튼으로 다른 사용자에게 문서를 전달합니다.</p>
+
+    <div class="upload-zone" id="zone-s0"
+         onclick="triggerUpload('s',0)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',0)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
     </div>
-    <div class="checkpoint">✅ 완료! 아래 완료 화면에서 전체 요약을 확인하세요.</div>
-    <div class="nav">
-      <button onclick="go(-1)">← 이전</button>
-      <span>4 / 4</span>
-      <button onclick="go(1)">완료 →</button>
-    </div>
+
+    <input type="file" id="file-s0" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',0)">
   </div>
-
-  <div class="step" id="step-4" style="display:none">
-    <div class="step-num">완료</div>
-    <h2>🎉 튜토리얼을 마쳤습니다</h2>
-    <p style="font-size:15px;color:#4b5563">아래 핵심 체크리스트를 다시 확인하세요.</p>
-    <ul class="complete-list">
-      <li>✅ 사용자 이름·저장 폴더 설정</li>
-      <li>✅ 새 문서 작성 시 제목·카테고리 입력</li>
-      <li>✅ 작성 후 반드시 저장</li>
-      <li>✅ 검색으로 문서 찾기, 공유로 전달</li>
-    </ul>
-    <div class="nav">
-      <button onclick="go(-1)">← 이전</button>
-      <span>완료</span>
-      <button onclick="go(0,true)">처음으로</button>
-    </div>
+  <div class="content"><p>학원 AI 업무 도우미 PWA (KING Assistant OS)</p><p>강사: 업무 지시 / 조교: 업무 실행</p></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(-1)" disabled>← 이전</button>
+    <span>1 / 14</span>
+    <button onclick="sgo(1)" >다음 →</button>
   </div>
+</div>
+<div class="sstep" id="sstep-1" style="display:none">
+  <div class="step-num">STEP 2 / 14</div>
+  <h2>업무 흐름</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:14%"></div>
+  </div>
+  <div class="screen-area" id="screen-s1">
 
+    <div class="slide-viewer" id="viewer-s1" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s1" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',1)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',1)">&#8592;</button>
+        <span class="slide-counter" id="counter-s1">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',1)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s1"></div>
+      <button class="add-btn" onclick="triggerUpload('s',1)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s1"
+         onclick="triggerUpload('s',1)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',1)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s1" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',1)">
+  </div>
+  <div class="content"><p>강사 → 업무 추가 → JSON 다운로드 → (전달) → 조교 → JSON 업로드 → 업무 실행</p></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(0)" >← 이전</button>
+    <span>2 / 14</span>
+    <button onclick="sgo(2)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-2" style="display:none">
+  <div class="step-num">STEP 3 / 14</div>
+  <h2>업무① 업무 받기</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:21%"></div>
+  </div>
+  <div class="screen-area" id="screen-s2">
+
+    <div class="slide-viewer" id="viewer-s2" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s2" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',2)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',2)">&#8592;</button>
+        <span class="slide-counter" id="counter-s2">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',2)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s2"></div>
+      <button class="add-btn" onclick="triggerUpload('s',2)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s2"
+         onclick="triggerUpload('s',2)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',2)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s2" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',2)">
+  </div>
+  <div class="content"><p>(업무 탭 → JSON 업로드)</p><li>강사가 전달한 JSON 파일을 JSON 업로드로 불러오기</li><li>업무 목록 확인 (우선순위/진행상황/담당자 필터)</li><div class="warning">⚠️ 업무 목록이 비어 있으면 JSON 업로드를 먼저 실행</div></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(1)" >← 이전</button>
+    <span>3 / 14</span>
+    <button onclick="sgo(3)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-3" style="display:none">
+  <div class="step-num">STEP 4 / 14</div>
+  <h2>업무② 업무 실행</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:28%"></div>
+  </div>
+  <div class="screen-area" id="screen-s3">
+
+    <div class="slide-viewer" id="viewer-s3" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s3" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',3)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',3)">&#8592;</button>
+        <span class="slide-counter" id="counter-s3">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',3)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s3"></div>
+      <button class="add-btn" onclick="triggerUpload('s',3)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s3"
+         onclick="triggerUpload('s',3)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',3)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s3" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',3)">
+  </div>
+  <div class="content"><p>(업무 탭)</p><li>업무 선택 → 진행 → 완료 처리</li><li>오늘 할 일: 홈 탭 달력에서 날짜 클릭 → 업무 확인</li></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(2)" >← 이전</button>
+    <span>4 / 14</span>
+    <button onclick="sgo(4)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-4" style="display:none">
+  <div class="step-num">STEP 5 / 14</div>
+  <h2>업무③ 모르면 SOP</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:35%"></div>
+  </div>
+  <div class="screen-area" id="screen-s4">
+
+    <div class="slide-viewer" id="viewer-s4" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s4" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',4)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',4)">&#8592;</button>
+        <span class="slide-counter" id="counter-s4">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',4)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s4"></div>
+      <button class="add-btn" onclick="triggerUpload('s',4)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s4"
+         onclick="triggerUpload('s',4)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',4)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s4" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',4)">
+  </div>
+  <div class="content"><p>(SOP 탭)</p><li>업무 절차가 궁금할 때</li><li>카테고리 필터: 복테/오답노트/채점/비품/장비</li></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(3)" >← 이전</button>
+    <span>5 / 14</span>
+    <button onclick="sgo(5)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-5" style="display:none">
+  <div class="step-num">STEP 6 / 14</div>
+  <h2>업무⑤ 그래도 모르겠으면 AI</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:42%"></div>
+  </div>
+  <div class="screen-area" id="screen-s5">
+
+    <div class="slide-viewer" id="viewer-s5" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s5" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',5)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',5)">&#8592;</button>
+        <span class="slide-counter" id="counter-s5">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',5)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s5"></div>
+      <button class="add-btn" onclick="triggerUpload('s',5)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s5"
+         onclick="triggerUpload('s',5)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',5)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s5" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',5)">
+  </div>
+  <div class="content"><p>(Dooly 탭)</p><li>기본: Mock 모드 (오프라인, 사전 등록 답변)</li><li>온라인: Gemini AI 모드 (실시간 AI 답변)</li><li>SOP/FAQ 참조 태그 자동 표시</li></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(4)" >← 이전</button>
+    <span>6 / 14</span>
+    <button onclick="sgo(6)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-6" style="display:none">
+  <div class="step-num">STEP 7 / 14</div>
+  <h2>참고 — 설정</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:50%"></div>
+  </div>
+  <div class="screen-area" id="screen-s6">
+
+    <div class="slide-viewer" id="viewer-s6" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s6" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',6)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',6)">&#8592;</button>
+        <span class="slide-counter" id="counter-s6">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',6)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s6"></div>
+      <button class="add-btn" onclick="triggerUpload('s',6)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s6"
+         onclick="triggerUpload('s',6)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',6)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s6" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',6)">
+  </div>
+  <div class="content"><p>(설정 탭, 최초 1회)</p><li>담당자 추가/관리</li><li>DB 폴더 경로 설정</li><p>---</p><p># Dooly 업무 규칙</p></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(5)" >← 이전</button>
+    <span>7 / 14</span>
+    <button onclick="sgo(7)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-7" style="display:none">
+  <div class="step-num">STEP 8 / 14</div>
+  <h2>JSON 규칙</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:57%"></div>
+  </div>
+  <div class="screen-area" id="screen-s7">
+
+    <div class="slide-viewer" id="viewer-s7" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s7" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',7)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',7)">&#8592;</button>
+        <span class="slide-counter" id="counter-s7">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',7)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s7"></div>
+      <button class="add-btn" onclick="triggerUpload('s',7)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s7"
+         onclick="triggerUpload('s',7)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',7)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s7" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',7)">
+  </div>
+  <div class="content"><li>JSON 파일은 덮어쓰지 않고 날짜별로 보관합니다.</li></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(6)" >← 이전</button>
+    <span>8 / 14</span>
+    <button onclick="sgo(8)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-8" style="display:none">
+  <div class="step-num">STEP 9 / 14</div>
+  <h2>업무 처리 규칙</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:64%"></div>
+  </div>
+  <div class="screen-area" id="screen-s8">
+
+    <div class="slide-viewer" id="viewer-s8" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s8" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',8)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',8)">&#8592;</button>
+        <span class="slide-counter" id="counter-s8">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',8)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s8"></div>
+      <button class="add-btn" onclick="triggerUpload('s',8)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s8"
+         onclick="triggerUpload('s',8)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',8)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s8" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',8)">
+  </div>
+  <div class="content"><li>업무는 반드시 Dooly 앱에서 완료 처리합니다.</li><li>업무 목록이 비어 있으면 JSON 업로드를 먼저 실행합니다.</li></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(7)" >← 이전</button>
+    <span>9 / 14</span>
+    <button onclick="sgo(9)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-9" style="display:none">
+  <div class="step-num">STEP 10 / 14</div>
+  <h2>AI 챗봇 사용 규칙</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:71%"></div>
+  </div>
+  <div class="screen-area" id="screen-s9">
+
+    <div class="slide-viewer" id="viewer-s9" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s9" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',9)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',9)">&#8592;</button>
+        <span class="slide-counter" id="counter-s9">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',9)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s9"></div>
+      <button class="add-btn" onclick="triggerUpload('s',9)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s9"
+         onclick="triggerUpload('s',9)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',9)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s9" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',9)">
+  </div>
+  <div class="content"><li>기본 모드는 Mock 모드(오프라인)입니다.</li><li>실시간 AI 답변이 필요할 때만 Gemini 모드로 전환합니다.</li></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(8)" >← 이전</button>
+    <span>10 / 14</span>
+    <button onclick="sgo(10)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-10" style="display:none">
+  <div class="step-num">STEP 11 / 14</div>
+  <h2>설정 규칙</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:78%"></div>
+  </div>
+  <div class="screen-area" id="screen-s10">
+
+    <div class="slide-viewer" id="viewer-s10" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s10" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',10)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',10)">&#8592;</button>
+        <span class="slide-counter" id="counter-s10">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',10)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s10"></div>
+      <button class="add-btn" onclick="triggerUpload('s',10)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s10"
+         onclick="triggerUpload('s',10)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',10)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s10" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',10)">
+  </div>
+  <div class="content"><li>담당자 추가/관리는 설정 탭에서 최초 1회 실행합니다.</li><li>DB 폴더 경로는 최초 설정 후 임의로 변경하지 않습니다.</li><p>---</p><p># Dooly FAQ</p></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(9)" >← 이전</button>
+    <span>11 / 14</span>
+    <button onclick="sgo(11)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-11" style="display:none">
+  <div class="step-num">STEP 12 / 14</div>
+  <h2>업무④ 안 되면 FAQ</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:85%"></div>
+  </div>
+  <div class="screen-area" id="screen-s11">
+
+    <div class="slide-viewer" id="viewer-s11" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s11" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',11)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',11)">&#8592;</button>
+        <span class="slide-counter" id="counter-s11">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',11)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s11"></div>
+      <button class="add-btn" onclick="triggerUpload('s',11)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s11"
+         onclick="triggerUpload('s',11)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',11)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s11" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',11)">
+  </div>
+  <div class="content"><p>(FAQ 탭)</p><li>특정 상황 해결책이 궁금할 때</li><li>카테고리 필터: 복테/오답노트/채점/비품/제본기</li></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(10)" >← 이전</button>
+    <span>12 / 14</span>
+    <button onclick="sgo(12)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-12" style="display:none">
+  <div class="step-num">STEP 13 / 14</div>
+  <h2>자주 하는 실수</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:92%"></div>
+  </div>
+  <div class="screen-area" id="screen-s12">
+
+    <div class="slide-viewer" id="viewer-s12" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s12" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',12)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',12)">&#8592;</button>
+        <span class="slide-counter" id="counter-s12">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',12)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s12"></div>
+      <button class="add-btn" onclick="triggerUpload('s',12)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s12"
+         onclick="triggerUpload('s',12)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',12)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s12" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',12)">
+  </div>
+  <div class="content"><p>| 증상 | 원인 | 해결 |</p><p>|------|------|------|</p><p>| 업무가 안 보인다 | JSON 업로드 미실행 | JSON 업로드 클릭 |</p><p>| 동기화가 안 된다 | 오프라인 상태 | 네트워크 확인 후 동기화 |</p><p>| AI 답변이 없다 | Mock 모드 상태 | Dooly 탭에서 모드 확인 |</p></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(11)" >← 이전</button>
+    <span>13 / 14</span>
+    <button onclick="sgo(13)" >다음 →</button>
+  </div>
+</div>
+<div class="sstep" id="sstep-13" style="display:none">
+  <div class="step-num">STEP 14 / 14</div>
+  <h2>FAQ</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" style="width:100%"></div>
+  </div>
+  <div class="screen-area" id="screen-s13">
+
+    <div class="slide-viewer" id="viewer-s13" style="display:none;">
+      <div class="slide-display">
+        <img id="slide-img-s13" style="max-width:100%;border-radius:8px;
+             border:1px solid #e5e7eb;">
+        <button class="img-delete"
+                onclick="deleteSlide('s',13)"
+                title="이 이미지 삭제">✕</button>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-btn" onclick="prevSlide('s',13)">&#8592;</button>
+        <span class="slide-counter" id="counter-s13">1 / 1</span>
+        <button class="slide-btn" onclick="nextSlide('s',13)">&#8594;</button>
+      </div>
+      <div class="thumb-tray" id="tray-s13"></div>
+      <button class="add-btn" onclick="triggerUpload('s',13)">+ 이미지 추가</button>
+    </div>
+
+    <div class="upload-zone" id="zone-s13"
+         onclick="triggerUpload('s',13)"
+         ondragover="event.preventDefault();this.classList.add('drag-over')"
+         ondragleave="this.classList.remove('drag-over')"
+         ondrop="handleDrop(event,'s',13)">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">
+        클릭하거나 이미지를 여기에 드래그하세요<br>
+        <small>JPG, PNG, WebP 지원 · 여러 장 가능</small>
+      </div>
+    </div>
+
+    <input type="file" id="file-s13" accept="image/*" multiple
+           style="display:none"
+           onchange="handleFile(event,'s',13)">
+  </div>
+  <div class="content"><p>Q. 강사가 등록한 업무를 어떻게 받나요?</p><p>A. 강사가 JSON 다운로드로 저장한 파일을 받아 JSON 업로드로 불러옵니다.</p><p>Q. 언제 SOP를 보고, 언제 FAQ를 보나요?</p><p>A. 업무 절차가 궁금하면 SOP, 특정 상황의 해결책이 궁금하면 FAQ를 봅니다.</p><p>Q. AI 챗봇이 틀린 답을 줘요.</p><p>A. Mock 모드는 사전 등록 답변만 가능합니다. Gemini 모드로 전환하세요.</p></div>
+  <div class="checkpoint">✅ 이 화면이 보이면 다음 단계로 진행하세요.</div>
+  <div class="nav">
+    <button onclick="sgo(12)" >← 이전</button>
+    <span>14 / 14</span>
+    <button onclick="sgo(14)" disabled>다음 →</button>
+  </div>
+</div>
 </div>
 <script>
-var current = 0;
-var total = 5;
-function go(delta, restart){
-  var steps = document.querySelectorAll('.step');
-  steps[current].style.display = 'none';
-  if(restart){ current = 0; }
-  else { current += delta; }
-  if(current < 0) current = 0;
-  if(current >= total) current = total - 1;
-  steps[current].style.display = 'block';
-  window.scrollTo(0,0);
+
+function sgo(n){
+  var s=document.querySelectorAll('.sstep');
+  if(n<0||n>=s.length)return;
+  s.forEach(function(x){x.style.display='none'});
+  s[n].style.display='block';window.scrollTo(0,0);
 }
-</script>
-</body>
-</html>
+
+function tutorialPDF() {
+  var orig = document.title;
+  document.title = 'Dooly_튜토리얼_v1.0';
+  window.print();
+  setTimeout(function() { document.title = orig; }, 1000);
+}
+
+// ── 슬라이드 멀티 이미지 ──────────────────────────────
+
+// 각 STEP의 이미지 배열과 현재 인덱스 상태
+// slideData[key] = { images: [dataUrl, ...], current: 0 }
+var slideData = {};
+
+function _key(prefix, idx) { return prefix + '_' + idx; }
+
+// 페이지 로드 시 localStorage에서 복원
+window.addEventListener('DOMContentLoaded', function() {
+  for (var k in localStorage) {
+    if (k.startsWith('slides_')) {
+      var parts = k.replace('slides_', '').split('_');
+      // prefix에 _ 없으면 parts[0]=prefix, parts[1]=idx
+      // prefix에 _ 있을 경우 대비: 마지막 요소가 idx
+      var idx = parseInt(parts[parts.length - 1]);
+      var prefix = parts.slice(0, parts.length - 1).join('_');
+      try {
+        var arr = JSON.parse(localStorage.getItem(k));
+        if (Array.isArray(arr) && arr.length > 0) {
+          slideData[_key(prefix, idx)] = { images: arr, current: 0 };
+          renderSlides(prefix, idx);
+        }
+      } catch(e) {}
+    }
+  }
+});
+
+function saveSlides(prefix, idx) {
+  var k = _key(prefix, idx);
+  localStorage.setItem('slides_' + k,
+    JSON.stringify(slideData[k] ? slideData[k].images : []));
+}
+
+function triggerUpload(prefix, idx) {
+  document.getElementById('file-' + prefix + idx).click();
+}
+
+function handleFile(event, prefix, idx) {
+  var files = Array.from(event.target.files);
+  if (!files.length) return;
+  readFiles(files, prefix, idx);
+  event.target.value = '';
+}
+
+function handleDrop(event, prefix, idx) {
+  event.preventDefault();
+  document.getElementById('zone-' + prefix + idx)
+          .classList.remove('drag-over');
+  var files = Array.from(event.dataTransfer.files)
+                   .filter(function(f){ return f.type.startsWith('image/'); });
+  if (!files.length) return;
+  readFiles(files, prefix, idx);
+}
+
+function readFiles(files, prefix, idx) {
+  var k = _key(prefix, idx);
+  if (!slideData[k]) slideData[k] = { images: [], current: 0 };
+  var pending = files.length;
+  files.forEach(function(file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      slideData[k].images.push(e.target.result);
+      pending--;
+      if (pending === 0) {
+        slideData[k].current = slideData[k].images.length - 1;
+        saveSlides(prefix, idx);
+        renderSlides(prefix, idx);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderSlides(prefix, idx) {
+  var k = _key(prefix, idx);
+  var data = slideData[k];
+  if (!data || data.images.length === 0) {
+    showZone(prefix, idx);
+    return;
+  }
+
+  // 뷰어 표시, 존 숨김
+  var viewer = document.getElementById('viewer-' + prefix + idx);
+  var zone   = document.getElementById('zone-'   + prefix + idx);
+  if (!viewer || !zone) return;
+  viewer.style.display = 'flex';
+  zone.style.display   = 'none';
+
+  // 메인 이미지
+  var img = document.getElementById('slide-img-' + prefix + idx);
+  if (img) img.src = data.images[data.current];
+
+  // 카운터
+  var counter = document.getElementById('counter-' + prefix + idx);
+  if (counter) counter.textContent =
+    (data.current + 1) + ' / ' + data.images.length;
+
+  // 썸네일 트레이
+  renderThumbs(prefix, idx);
+}
+
+function renderThumbs(prefix, idx) {
+  var k    = _key(prefix, idx);
+  var data = slideData[k];
+  var tray = document.getElementById('tray-' + prefix + idx);
+  if (!tray || !data) return;
+  tray.innerHTML = '';
+  data.images.forEach(function(src, i) {
+    var item = document.createElement('div');
+    item.className = 'thumb-item' + (i === data.current ? ' active' : '');
+    item.draggable = true;
+    item.dataset.thumbIdx = i;
+
+    var img = document.createElement('img');
+    img.src = src;
+    item.appendChild(img);
+
+    // 클릭 → 해당 슬라이드로 이동
+    item.addEventListener('click', function() {
+      slideData[k].current = i;
+      renderSlides(prefix, idx);
+    });
+
+    // 드래그 순서 변경
+    item.addEventListener('dragstart', function(e) {
+      e.dataTransfer.setData('text/plain', i);
+      item.style.opacity = '0.5';
+    });
+    item.addEventListener('dragend', function() {
+      item.style.opacity = '1';
+    });
+    item.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      item.classList.add('drag-over-thumb');
+    });
+    item.addEventListener('dragleave', function() {
+      item.classList.remove('drag-over-thumb');
+    });
+    item.addEventListener('drop', function(e) {
+      e.preventDefault();
+      item.classList.remove('drag-over-thumb');
+      var fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
+      var toIdx   = i;
+      if (fromIdx === toIdx) return;
+      // 배열 순서 변경
+      var arr = slideData[k].images;
+      var moved = arr.splice(fromIdx, 1)[0];
+      arr.splice(toIdx, 0, moved);
+      slideData[k].current = toIdx;
+      saveSlides(prefix, idx);
+      renderSlides(prefix, idx);
+    });
+
+    tray.appendChild(item);
+  });
+}
+
+function prevSlide(prefix, idx) {
+  var k = _key(prefix, idx);
+  if (!slideData[k]) return;
+  var len = slideData[k].images.length;
+  slideData[k].current = (slideData[k].current - 1 + len) % len;
+  renderSlides(prefix, idx);
+}
+
+function nextSlide(prefix, idx) {
+  var k = _key(prefix, idx);
+  if (!slideData[k]) return;
+  var len = slideData[k].images.length;
+  slideData[k].current = (slideData[k].current + 1) % len;
+  renderSlides(prefix, idx);
+}
+
+function deleteSlide(prefix, idx) {
+  var k = _key(prefix, idx);
+  if (!slideData[k]) return;
+  var data = slideData[k];
+  data.images.splice(data.current, 1);
+  if (data.images.length === 0) {
+    slideData[k] = { images: [], current: 0 };
+    saveSlides(prefix, idx);
+    showZone(prefix, idx);
+    return;
+  }
+  data.current = Math.min(data.current, data.images.length - 1);
+  saveSlides(prefix, idx);
+  renderSlides(prefix, idx);
+}
+
+function showZone(prefix, idx) {
+  var viewer = document.getElementById('viewer-' + prefix + idx);
+  var zone   = document.getElementById('zone-'   + prefix + idx);
+  if (viewer) viewer.style.display = 'none';
+  if (zone)   zone.style.display   = 'flex';
+}
+
+// 전체 초기화
+function clearAllImages() {
+  if (!confirm('모든 STEP의 이미지를 삭제하시겠습니까?')) return;
+  for (var k in localStorage) {
+    if (k.startsWith('slides_')) localStorage.removeItem(k);
+  }
+  slideData = {};
+  // 모든 뷰어 숨기고 존 표시
+  document.querySelectorAll('.slide-viewer').forEach(function(v) {
+    v.style.display = 'none';
+  });
+  document.querySelectorAll('.upload-zone').forEach(function(z) {
+    z.style.display = 'flex';
+  });
+}
+</script></body></html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PrintFlow 업무 매뉴얼</title>
+<style>
+  body{font-family:'Malgun Gothic',sans-serif;max-width:800px;
+        margin:0 auto;padding:0 20px 40px;color:#1f2937;line-height:1.7}
+  .sticky-header{position:sticky;top:0;background:white;z-index:10;
+                  margin-bottom:24px}
+  .top-bar{display:flex;justify-content:space-between;align-items:center;
+            padding:20px 0 16px;border-bottom:1px solid #e5e7eb}
+  .top-bar h1{margin:0;font-size:20px;color:#1e3a5f}
+  .top-meta{font-size:12px;color:#6b7280;margin-top:4px}
+  .btn-group{display:flex;gap:8px}
+  .btn-print{padding:6px 14px;background:white;border:1px solid #d1d5db;
+              border-radius:6px;cursor:pointer;font-size:13px;
+              font-family:inherit}
+  .btn-pdf{padding:6px 14px;background:#16a34a;color:white;border:none;
+            border-radius:6px;cursor:pointer;font-size:13px;
+            font-family:inherit}
+  .btn-print:hover{background:#f9fafb}
+  .btn-pdf:hover{background:#15803d}
+  h1{color:#1e3a5f;border-bottom:3px solid #3b82f6;padding-bottom:10px}
+  h2{color:#1e40af;border-left:4px solid #3b82f6;padding-left:12px;
+      margin-top:32px}
+  h3{color:#374151;margin-top:20px}
+  h4{color:#4b5563;margin-top:16px;font-size:14px}
+  ul{padding-left:20px;margin:8px 0}
+  li{margin:6px 0}
+  code{background:#f3f4f6;padding:2px 6px;border-radius:4px;
+        font-family:'Consolas',monospace;font-size:13px;color:#1e40af}
+  pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;
+       overflow-x:auto;margin:12px 0;font-size:13px;line-height:1.6}
+  pre code{background:none;color:inherit;padding:0;font-size:inherit}
+  .warning{background:#fffbeb;border:1px solid #f59e0b;border-radius:8px;
+            padding:12px 16px;margin:12px 0;color:#92400e}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  th,td{border:1px solid #e5e7eb;padding:8px 12px;text-align:left}
+  th{background:#f3f4f6}
+  .pdf-tip{margin-top:32px;font-size:12px;color:#9ca3af;
+            padding:10px 14px;background:#f9fafb;border-radius:6px}
+  /* ── 탭 구조 ── */
+  .tab-bar{display:flex;gap:0;border-bottom:2px solid #e5e7eb;margin:0}
+  .tab-btn{padding:10px 24px;background:none;border:none;font-size:14px;
+            font-family:inherit;cursor:pointer;color:#6b7280;
+            border-bottom:3px solid transparent;margin-bottom:-2px;
+            transition:all 0.15s}
+  .tab-btn:hover{color:#1e40af}
+  .tab-btn.active{color:#1e40af;font-weight:600;
+                   border-bottom:3px solid #3b82f6}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+  .tab-empty{padding:40px 0;text-align:center;color:#9ca3af;font-size:14px}
+  @media print{
+    /* 레이아웃 */
+    .sticky-header{position:static}
+    .top-bar{border-bottom:none}
+    body{padding:0}
+
+    /* 버튼·안내 숨김 */
+    .btn-group{display:none}
+    .pdf-tip{display:none}
+    .tab-bar{display:none}
+
+    /* 탭 전체 출력 */
+    .tab-panel{display:block !important}
+
+    /* 탭 간 구분선 */
+    .tab-panel + .tab-panel{
+      border-top:2px solid #e5e7eb;
+      margin-top:32px;
+      padding-top:32px;
+    }
+
+    /* 페이지 나누기 — 탭별로 새 페이지 (선택) */
+    /* .tab-panel{page-break-before:always} */
+  }
+</style></head><body>
+
+<div class="sticky-header">
+  <div class="top-bar">
+    <div>
+      <h1 style="margin:0;font-size:20px;border:none;padding:0;">
+        PrintFlow 업무 매뉴얼 (SOP)
+      </h1>
+      <div class="top-meta">생성일: 2026-07-10 | 버전: v1.0</div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-print" onclick="window.print()">🖨️ 인쇄</button>
+      <button class="btn-pdf" onclick="savePDF()">📄 PDF 저장</button>
+    </div>
+  </div>
+  <div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('guide', this)">
+    📋 가이드
+  </button>
+  <button class="tab-btn" onclick="switchTab('rule', this)">
+    📌 업무규칙
+  </button>
+  <button class="tab-btn" onclick="switchTab('faq', this)">
+    ❓ FAQ
+  </button>
+</div>
+</div>
+
+
+<div id="tab-guide" class="tab-panel active">
+<h1>PrintFlow 가이드</h1>
+<p>생성일: 2026-07 | 버전: v1.0</p>
+<br>
+<h2>앱 개요</h2>
+<p>기존: 텍스트파일 → 조교가 폴더 직접 탐색 → 출력</p>
+<p>PrintFlow: 강사가 앱에서 자료선택·학생선택·계획등록 → 조교가 계획열람·출력·완료</p>
+<br>
+<h2>업무 흐름</h2>
+<p>강사K → 자료선택 → 목록생성 → 학생선택 → 계획등록 → (동기화)</p>
+<p>→ 조교P → 새로고침 → 계획열람 → 출력 → 완료</p>
+<p>→ 조교Q/R → 미완료 이어서 처리</p>
+<br>
+<h2>기본 설정</h2>
+<ul>
+<li>사용자 이름 입력 후 저장 클릭</li>
+<li>자료 DB 폴더: 탐색 버튼으로 선택 후 반드시 저장 & 재스캔 클릭</li>
+<li>동기화 폴더: 탐색 버튼으로 공유 폴더 선택</li>
+</ul>
+<div class="warning">⚠️ 자료 DB 변경 시 반드시 저장 & 재스캔 클릭 — 안 하면 자료 안 보임</div>
+<br>
+<h2>강사(K) 사용법 — 자료 열람 > 폴더 탐색</h2>
+<ul>
+<li>좌측 트리에서 단원 선택 → 우측 파일 목록 확인</li>
+<li>필요한 파일 체크 → 목록에 추가 클릭</li>
+</ul>
+<br>
+<h2>강사(K) 사용법 — 내 목록/계획 탭</h2>
+<ul>
+<li>내 목록/계획 탭 클릭</li>
+<li>저장된 목록 선택 → 이름 변경 버튼으로 명확한 이름 부여</li>
+</ul>
+<br>
+<h2>강사(K) 사용법 — 계획 등록</h2>
+<ul>
+<li>목록 선택 드롭다운에서 목록 선택</li>
+<li>반 선택 입력</li>
+<li>학생 선택 (N명 선택됨 확인)</li>
+<li>수업 예정일 날짜 선택</li>
+<li>N명 × M개 파일 = Task 수 확인 후 계획 등록 (N개) 클릭</li>
+</ul>
+<br>
+<h2>조교(P·Q·R) 사용법 — 출근 즉시 새로고침</h2>
+<ul>
+<li>앱 실행 후 좌측 상단 새로고침 버튼 클릭</li>
+<li>"아직 새로고침 전" → "새로고침 완료" 확인</li>
+</ul>
+<br>
+<h2>조교(P·Q·R) 사용법 — 계획 열람</h2>
+<ul>
+<li>계획 열람 메뉴 클릭</li>
+<li>달력에서 오늘 날짜 클릭</li>
+<li>미완료(주황 배경) 항목 확인</li>
+</ul>
+<br>
+<h2>조교(P·Q·R) 사용법 — 출력 및 완료</h2>
+<ul>
+<li>열기 버튼 → 파일 열기 → 학생 수만큼 출력</li>
+<li>출력 완료 후 반드시 완료 버튼 클릭</li>
+</ul>
+<div class="warning">⚠️ 완료 클릭 안 하면 다음 조교가 중복 출력</div>
+<br>
+<h2>조교 간 인수인계</h2>
+<ul>
+<li>완료한 항목: 초록 배경으로 표시됨</li>
+<li>미완료 항목: 다음 조교가 새로고침 후 이어서 처리</li>
+</ul>
+<br>
+<h2>참고 — 학생 등록</h2>
+<ul>
+<li>학생 관리 메뉴 → + 학생 추가 버튼</li>
+<li>이름, 반, 학교, 학년, 담당강사 입력</li>
+</ul>
+<br>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+<br>
+<h1>PrintFlow 참조 코드표</h1>
+
+</div>
+
+<div id="tab-rule" class="tab-panel">
+<h1>PrintFlow 업무 규칙</h1>
+<br>
+<h2>파일 저장 원칙 (8가지)</h2>
+<br>
+<p>1. 빠짐없이 저장한다</p>
+<p>2. 중복 없이 저장한다</p>
+<p>3. 원본 파일은 유지하고 덮어쓰지 않는다</p>
+<p>4. 시간 순서대로 저장한다</p>
+<p>5. 파일을 열어보지 않아도 내용을 알 수 있도록 저장한다</p>
+<p>6. 나중에 검색하기 쉽게 저장한다</p>
+<p>7. 파일 출처를 알 수 있게 저장한다</p>
+<p>8. 숙제와 테스트를 명확히 구분하여 저장한다</p>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+<br>
+<h2>스캔 후 파일명 규칙</h2>
+<br>
+<h3>A. 숙제</h3>
+<p>규칙: <code>원본파일명 + 학생이름 + -횟수</code></p>
+<br>
+<p>숙제의 횟수는 같은 자료를 학생이 몇 번째 푼 것인지를 나타낸다.</p>
+<br>
+<table>
+<tr><th>예시</th><th>의미</th></tr>
+<tr><td>A 김철수-1.pdf</td><td>A 자료, 김철수, 첫 번째 숙제</td></tr>
+<tr><td>A 김철수-2.pdf</td><td>A 자료, 김철수, 두 번째 숙제</td></tr>
+<tr><td>B 김철수-1.pdf</td><td>B 자료, 김철수, 첫 번째 숙제</td></tr>
+</table>
+<br>
+<h3>B. 테스트</h3>
+<p>규칙: <code>원본파일명 + 학생이름 + 틀린문제수 + 개</code></p>
+<br>
+<p>테스트의 숫자는 시험에서 처음 틀린 문제의 전체 개수를 나타낸다.</p>
+<br>
+<table>
+<tr><th>예시</th><th>의미</th></tr>
+<tr><td>C 김철수 2개.pdf</td><td>C 자료, 김철수, 최초 시험에서 2문제 틀림</td></tr>
+<tr><td>D 김철수 3개.pdf</td><td>D 자료, 김철수, 최초 시험에서 3문제 틀림</td></tr>
+</table>
+<br>
+<h3>원본 파일 예시 (4개인 경우)</h3>
+<pre><code>A.hwp  B.pdf  C.pdf  D.hwp</code></pre>
+<p>스캔 후 저장:</p>
+<pre><code>A 김철수-1.pdf    (숙제 첫 번째)
+A 김철수-2.pdf    (숙제 두 번째)
+B 김철수-1.pdf    (숙제 첫 번째)
+C 김철수 2개.pdf  (테스트, 2문제 틀림)
+D 김철수 3개.pdf  (테스트, 3문제 틀림)</code></pre>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+<br>
+<h2>검사 규칙</h2>
+<br>
+<p>검사는 숙제 검사(HW)와 테스트 검사(TEST) 두 가지로 구분한다.</p>
+<br>
+<h3>HW. 숙제 검사 대상</h3>
+<pre><code>HW_A-01 교재 검사
+HW_A-02 복테 검사
+HW_A-03 오답노트 검사
+HW_B-01 숙제 프린트 검사
+HW_C-01 내신모의 검사
+HW_C-02 기출 검사</code></pre>
+<br>
+<h3>TEST. 테스트 검사 대상</h3>
+<pre><code>TEST_B-02 테스트 프린트 검사
+TEST_C-01 내신모의 검사
+TEST_C-02 기출 검사
+TEST_D-01 진단평가 검사
+TEST_D-02 입학테스트 검사</code></pre>
+<br>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+<br>
+<h2>자료 분류 코드</h2>
+<br>
+<h3>대분류</h3>
+<br>
+<table>
+<tr><th>코드</th><th>대분류</th></tr>
+<tr><td>A</td><td>교재(Book)</td></tr>
+<tr><td>B</td><td>프린트(Print)</td></tr>
+<tr><td>C</td><td>시험대비(Exam)</td></tr>
+<tr><td>D</td><td>성취도(Level)</td></tr>
+</table>
+<br>
+<h3>코드표</h3>
+<br>
+<table>
+<tr><th>코드</th><th>용도</th></tr>
+<tr><td>A-01</td><td>교재 원본 자료</td></tr>
+<tr><td>A-02</td><td>복습 테스트(복테)</td></tr>
+<tr><td>A-03</td><td>학생별 오답노트</td></tr>
+<tr><td>B-01</td><td>숙제 출력 자료</td></tr>
+<tr><td>B-02</td><td>테스트 출력 자료</td></tr>
+<tr><td>C-01</td><td>내신대비 모의고사</td></tr>
+<tr><td>C-02</td><td>기출 자료</td></tr>
+<tr><td>D-01</td><td>진단평가</td></tr>
+<tr><td>D-02</td><td>입학테스트</td></tr>
+</table>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+<br>
+<h2>폴더 구조 표준</h2>
+<br>
+<p>자료는 아래 4단계 계층 구조로 관리한다.</p>
+<br>
+<pre><code>종류 → 과정 → 교재 → 단원</code></pre>
+<br>
+<h3>과정 코드</h3>
+<br>
+<h4>초등수학</h4>
+<pre><code>1-01 초1-1 / 1-02 초1-2 / 1-03 초2-1 / 1-04 초2-2
+1-05 초3-1 / 1-06 초3-2 / 1-07 초4-1 / 1-08 초4-2
+1-09 초5-1 / 1-10 초5-2 / 1-11 초6-1 / 1-12 초6-2</code></pre>
+<br>
+<h4>중등수학</h4>
+<pre><code>2-01 중1-1 / 2-02 중1-2 / 2-03 중2-1
+2-04 중2-2 / 2-05 중3-1 / 2-06 중3-2</code></pre>
+<br>
+<h4>고등수학</h4>
+<pre><code>3-01 공통수학1 / 3-02 공통수학2 / 3-03 대수
+3-04 확률과 통계 / 3-05 미적분1 / 3-06 미적분2 / 3-07 기하</code></pre>
+<br>
+<h3>교재 코드</h3>
+<br>
+<h4>학년별 grade</h4>
+<pre><code>grade-a 초등 / grade-b 중등 / grade-c 고등</code></pre>
+<br>
+<h4>단계별 step</h4>
+<pre><code>step-a 개념서 / step-b 유형서 / step-c 심화서
+step-d 모의고사 / step-e 기출</code></pre>
+<br>
+<h4>교재 목록</h4>
+<br>
+<table>
+<tr><th>코드</th><th>교재명</th><th>구분</th></tr>
+<tr><td>grade-a_step-a</td><td>기본+응용</td><td>초등 개념서</td></tr>
+<tr><td>grade-a_step-b</td><td>쎈</td><td>초등 유형서</td></tr>
+<tr><td>grade-a_step-c</td><td>최상위S</td><td>초등 심화서</td></tr>
+<tr><td>grade-b_step-a</td><td>개념+유형</td><td>중등 개념서</td></tr>
+<tr><td>grade-b_step-b</td><td>쎈</td><td>중등 유형서</td></tr>
+<tr><td>grade-b_step-c</td><td>일품</td><td>중등 심화서</td></tr>
+<tr><td>grade-b_step-c</td><td>블랙라벨</td><td>중등 심화서</td></tr>
+<tr><td>grade-b_step-d</td><td>내신모의</td><td>중등 모의고사</td></tr>
+<tr><td>grade-b_step-e</td><td>기출</td><td>중등 기출</td></tr>
+<tr><td>grade-c_step-a</td><td>개념원리</td><td>고등 개념서</td></tr>
+<tr><td>grade-c_step-b</td><td>쎈</td><td>고등 유형서</td></tr>
+<tr><td>grade-c_step-b</td><td>마플시너지</td><td>고등 유형서</td></tr>
+<tr><td>grade-c_step-c</td><td>일품</td><td>고등 심화서</td></tr>
+<tr><td>grade-c_step-c</td><td>올림포스 고난도</td><td>고등 심화서</td></tr>
+<tr><td>grade-c_step-c</td><td>고쟁이</td><td>고등 심화서</td></tr>
+<tr><td>grade-c_step-c</td><td>블랙라벨</td><td>고등 심화서</td></tr>
+<tr><td>grade-c_step-d</td><td>자이스토리(고1)</td><td>고등 모의고사</td></tr>
+<tr><td>grade-c_step-d</td><td>자이스토리(고2)</td><td>고등 모의고사</td></tr>
+<tr><td>grade-c_step-e</td><td>너기출</td><td>고등 기출</td></tr>
+<tr><td>grade-c_step-e</td><td>자이스토리(고3)</td><td>고등 기출</td></tr>
+</table>
+
+</div>
+
+<div id="tab-faq" class="tab-panel">
+<h1>PrintFlow FAQ</h1>
+<br>
+<h2>자주 하는 실수</h2>
+<br>
+<table>
+<tr><th>증상</th><th>원인</th><th>해결</th></tr>
+<tr><td>자료가 안 보인다</td><td>저장 & 재스캔 미클릭</td><td>재스캔 실행</td></tr>
+<tr><td>강사 계획이 안 보인다</td><td>새로고침 미클릭</td><td>새로고침 클릭</td></tr>
+<tr><td>학생 선택이 안 된다</td><td>학생 관리에 미등록</td><td>학생 관리에서 등록</td></tr>
+<tr><td>계획이 등록 안 된다</td><td>학생 미선택</td><td>학생 선택 후 등록</td></tr>
+<tr><td>출력이 중복되었다</td><td>완료 버튼 미클릭</td><td>완료 처리 철저히</td></tr>
+<tr><td>다른 PC 변경사항 미반영</td><td>새로고침 미클릭</td><td>새로고침 클릭</td></tr>
+</table>
+<br>
+<h2>FAQ</h2>
+<br>
+<p>Q. 자료 DB 폴더를 바꿨는데 자료가 그대로예요.</p>
+<p>A. 폴더 변경 후 반드시 <strong>저장 & 재스캔</strong> 버튼을 클릭해야 합니다.</p>
+<br>
+<p>Q. 강사가 계획을 등록했는데 내 화면에 안 나와요.</p>
+<p>A. 좌측 상단 <strong>새로고침</strong> 버튼을 클릭하면 최신 계획이 불러와집니다.</p>
+<br>
+<p>Q. 완료 버튼을 실수로 눌렀어요.</p>
+<p>A. <strong>완료 ↩</strong> 버튼을 다시 누르면 미완료 상태로 되돌릴 수 있습니다.</p>
+<br>
+<p>Q. 계획 등록 시 학생이 목록에 없어요.</p>
+<p>A. <strong>학생 관리</strong> 메뉴에서 먼저 학생을 등록해야 합니다.</p>
+<br>
+<br>
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;">
+
+</div>
+
+
+<div class="pdf-tip">
+  💡 <b>PDF 저장 방법</b>: [📄 PDF 저장] 버튼 클릭 →
+  인쇄 창에서 프린터를 <b>Microsoft Print to PDF</b> 선택 → 인쇄
+</div>
+
+<script>
+// ── 탭 전환 ──────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function savePDF() {
+  var orig = document.title;
+  document.title = 'PrintFlow_SOP_v1.0';
+  window.print();
+  setTimeout(function() { document.title = orig; }, 1000);
+}
+</script>
+</body></html>
